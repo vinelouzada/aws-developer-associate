@@ -1,7 +1,8 @@
 # AWS Certified Developer Associate
 
-## Termos importantes
+## Anotações importantes
 - **Metodologia Canary** (ou implantação Canary) é uma estratégia de lançamento de software que reduz riscos ao implantar uma nova versão de forma gradual.
+- Usar imagens Docker personalizadas que já contenham todas as dependências necessárias pode acelerar significativamente o tempo de build, uma vez que reduz o tempo gasto no download de dependências durante cada operação de build.
 
 ## AWS Secrets Manager
 
@@ -158,4 +159,42 @@ Automatize pipelines de entrega contínua para oferecer atualizações rápidas 
 ## AWS IAM
 Gerencia usuários, grupos, funções e permissões para controlar o acesso seguro aos recursos da AWS.
 
-Foco no menor privilégio
+Foco no mínimo privilégio
+
+## AWS PCA (Private Certificate Authority)
+
+ É uma solução segura e eficaz para criar e gerenciar uma autoridade certificadora **privada** dentro do ambiente AWS. Essa autoridade pode emitir e revogar certificados SSL/TLS para atender requisitos específicos de segurança e conformidade, ideal para comunicação interna entre microserviços em uma aplicação.
+
+ #### Diferença AWS PCA e AWS ACM
+
+ | *Característica*               | *AWS ACM (AWS Certificate Manager)*                                   | *AWS PCA (Private Certificate Authority)*                                   |
+|-----------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| *Tipo de Certificados*          | Certificados públicos para comunicação via HTTPS na internet          | Certificados privados para redes internas, sistemas privados, VPNs, etc.     |
+| *Emissão*                       | Emissão de certificados públicos SSL/TLS para serviços da AWS          | Emissão de certificados privados SSL/TLS para uso interno (não acessível publicamente) |
+| *Usos Principais*               | Proteção de sites, APIs, e aplicativos expostos à internet            | Proteção de redes internas, sistemas internos e comunicação segura privada  |
+| *Gerenciamento Automático*      | Renovação automática de certificados públicos                          | Renovação e gerenciamento de certificados privados sob controle organizacional |
+| *Custo*                          | Gratuito para certificados públicos (pode ter custos associados ao uso de certificados privados) | Custo associado à criação e operação de uma CA privada                       |
+| *Integração*                    | Integração fácil com serviços AWS como ELB, CloudFront, API Gateway   | Integrável com sistemas internos, dispositivos IoT, redes privadas, etc.     |
+| *Controle*                      | Gerenciamento simples e automatizado (sem controle de CA própria)     | Controle total sobre a hierarquia de autoridades certificadoras e políticas internas |
+| *Gerenciamento de Certificados Privados* | Não fornece certificados privados, apenas públicos                    | Permite emissão de certificados privados e sua gestão |
+
+## AWS ElastiCache for Memcached 
+É um serviço gerenciado de cache na memória, usado para melhorar o desempenho de aplicativos, armazenando dados temporários e frequentemente acessados de forma rápida e escalável.
+
+#### Comparação com Redis
+| Característica                   | Memcached                          | Redis                              |
+|------------------------------------|------------------------------------|------------------------------------|
+| **Persistência**                  | Não suporta persistência          | Suporta persistência (snapshots, AOF) |
+| **Estruturas de Dados**           | Simples (strings)                 | Avançadas (listas, conjuntos, hashes, etc.) |
+| **Escalabilidade Horizontal**     | Fácil de escalar horizontalmente  | Suporta escalabilidade com mais opções |
+| **Desempenho**                    | Mais rápido para cache simples    | Menos rápido, mas eficiente e flexível |
+| **Uso Típico**                    | Cache simples de dados           | Cache, filas, pub/sub, e persistência de dados |
+
+
+## AWS CodeWhisperer
+
+É uma ferramenta de assistente de codificação desenvolvida pela AWS que utiliza inteligência artificial (IA) para sugerir trechos de código enquanto você está programando.
+
+
+## AWS CodeGuru
+É uma ferramenta de análise de código que ajuda a melhorar a qualidade do código ao fornecer recomendações inteligentes.
