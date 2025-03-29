@@ -3,6 +3,7 @@
 ## Anotações importantes
 - **Metodologia Canary** (ou implantação Canary) é uma estratégia de lançamento de software que reduz riscos ao implantar uma nova versão de forma gradual.
 - Usar imagens Docker personalizadas que já contenham todas as dependências necessárias pode acelerar significativamente o tempo de build, uma vez que reduz o tempo gasto no download de dependências durante cada operação de build.
+- O comando aws sts get-caller-identity exibe a identidade da chamada atual na AWS, útil para verificar a função IAM assumida, especialmente em scripts em EC2.
 
 ## AWS Secrets Manager
 
@@ -31,6 +32,8 @@ Serviço gerenciado que utiliza **GraphQL** para criar **APIs** para aplicaçõe
 Implemente uma experiência de inscrição e login segura, escalável e personalizada em minutos
 
 ![alt text](https://docs.aws.amazon.com/pt_br/cognito/latest/developerguide/images/scenario-standalone.png)
+
+* É possível configurar User poll para permitir acesso de usuário autenticado e não autenticado
 
 ## AWS SageMaker
 
@@ -197,4 +200,36 @@ Foco no mínimo privilégio
 
 
 ## AWS CodeGuru
-É uma ferramenta de análise de código que ajuda a melhorar a qualidade do código ao fornecer recomendações inteligentes.
+Amazon CodeGuru Reviewer é uma ferramenta de revisão de código automatizada que ajuda a identificar problemas e vulnerabilidades de segurança no código. 
+
+## AWS StepFunctions
+Permite orquestrar serviços da AWS de forma visível de forma gerenciada.
+Ex: Chamada pra vários Lamdas. Aprovação de documentos, onde um fluxo chama Lambdas e DynamoDB para validar e armazenar informações.
+- É possível configurar retry
+
+## AWS DynamoDB
+O Amazon DynamoDB é um serviço de banco de dados NoSQL oferecido pela Amazon Web Services (AWS) que é conhecido por sua escalabilidade e desempenho. Ele suporta tanto chaves de partição quanto chaves de classificação, que são críticas para a otimização de consultas e para a distribuição eficiente de dados. A escolha de como modelar chaves no DynamoDB pode afetar diretamente o desempenho de leitura e escrita.
+
+- Chave de partição: ?
+- Chave de classificação: ?
+
+- O uso do DynamoDB Accelerator (DAX) é uma prática recomendada para reduzir a latência de acesso em consultas de leitura frequente, pois DAX adiciona uma camada de caching transparente para o DynamoDB.
+
+## S3
+Amazon S3 oferece uma variedade de opções de segurança para armazenar dados com segurança, incluindo criptografia em trânsito usando HTTPS e criptografia em repouso usando diferentes métodos, como o AWS KMS. Essencialmente, é importante habilitar ambas as criptografias em trânsito e em repouso para proteger dados confidenciais.
+
+## AWS Amplify
+
+Facilita a construção rápidas de aplicações full-stack
+
+## AWS AppSync
+
+AWS AppSync é um serviço gerenciado que facilita o desenvolvimento de aplicações móveis e web permitindo criar APIs GraphQL flexíveis. É ideal para agregar dados de múltiplas fontes - como DynamoDB, Lambda e Elasticsearch - de maneira eficiente. A utilização do Lambda como resolver permite uma orquestração segura e eficiente dos dados, enquanto que o caching ajuda na responsividade e redução de custos.
+
+
+## AWS SNS
+
+- O uso de filtros de mensagens do Amazon SNS permite enviar notificações apenas para os inscritos que correspondam a certos atributos, como ter optado por receber notificações de promoções.
+
+## CloudFront
+Amazon CloudFront é um serviço de rede de entrega de conteúdo (CDN) que fornece uma distribuição segura, escalável e global de conteúdo. CloudFront funciona através do cache de cópias de conteúdo em múltiplos locais geográficos para fornecer conteúdo com alta disponibilidade e alta velocidade. Quando há necessidade de atualizar o conteúdo cacheado, a funcionalidade de invalidação, como por meio da API CreateInvalidation, é usada para remover conteúdos desatualizados.
