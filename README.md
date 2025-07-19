@@ -1,6 +1,6 @@
 # AWS Certified Developer Associate
 
-### Anotações importantes
+## Anotações importantes
 
 - **Metodologia Canary** (ou implantação Canary) é uma estratégia de lançamento de software que reduz riscos ao implantar uma nova versão de forma gradual.
 - Usar imagens Docker personalizadas que já contenham todas as dependências necessárias pode acelerar significativamente o tempo de build, uma vez que reduz o tempo gasto no download de dependências durante cada operação de build.
