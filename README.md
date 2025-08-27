@@ -254,3 +254,88 @@ Amazon CloudFront é um serviço de rede de entrega de conteúdo (CDN) que forne
 ## AWS EFS
 
 É um serviço que permite o compartilhamento de arquivos entre instâncias.
+
+## Tipos de Deploy
+
+| Tipo de Deploy                    | Descrição                                                                                    | Quando Usar                                                    | Vantagens                                              | Desvantagens                                                            | Suporte na AWS                                                   |
+| --------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **All at Once**                   | Atualiza **todas as instâncias ao mesmo tempo**.                                             | Atualizações rápidas em ambientes pequenos ou testes.          | Deploy mais rápido; simples de configurar.             | Downtime total durante deploy; risco alto se algo der errado.           | Elastic Beanstalk                                                |
+| **Rolling**                       | Substitui gradualmente instâncias antigas pelas novas no mesmo grupo.                        | Atualizações regulares com baixo risco de downtime parcial.    | Downtime mínimo; simples.                              | Problemas podem afetar parte do tráfego; rollback parcial mais difícil. | Elastic Beanstalk, CodeDeploy, Auto Scaling                      |
+| **Rolling with Additional Batch** | Cria um **batch adicional de instâncias novas** antes de iniciar a substituição das antigas. | Minimizar downtime durante rolling; ambientes críticos.        | Menor risco de downtime; mais seguro que Rolling puro. | Mais custo temporário (instâncias extras); configuração mais complexa.  | Elastic Beanstalk                                                |
+| **Canary**                        | Lança a nova versão para uma pequena parte do tráfego antes de expandir.                     | Testar nova versão com risco controlado.                       | Reduz risco de impacto em produção; feedback rápido.   | Requer monitoramento; rollout mais lento.                               | CodeDeploy, API Gateway                                          |
+| **Blue-Green**                    | Mantém dois ambientes completos; troca 100% do tráfego de uma vez.                           | Atualizações críticas que exigem rollback rápido.              | Rollback instantâneo; sem downtime.                    | Custo maior (dois ambientes simultâneos).                               | Elastic Beanstalk, CodeDeploy, ECS/Fargate, Lambda (via aliases) |
+| **Immutable**                     | Cria novas instâncias do zero; só redireciona tráfego quando prontas.                        | Garantir atualização segura sem alterar instâncias existentes. | Zero impacto nas instâncias antigas; rollback seguro.  | Mais caro; tempo de deploy maior.                                       | Elastic Beanstalk, CodeDeploy, Auto Scaling                      |
+
+## Tipos de Criptografia na AWS
+
+### Criptografia de Dados em Repouso (Data at Rest)
+
+| Tipo de Criptografia       | Descrição                                                               | Quando Usar                                                         | Vantagens                                                                    | Desvantagens                                                           | Serviços que Suportam            |
+| -------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------- |
+| **SSE-S3**                 | Criptografia do lado do servidor com chaves gerenciadas pelo Amazon S3. | Proteção básica sem necessidade de gerenciar chaves.                | Fácil configuração; sem custo adicional; gerenciamento automático de chaves. | Menor controle sobre as chaves; não adequado para compliance rigoroso. | S3, EBS, RDS                     |
+| **SSE-KMS**                | Criptografia do lado do servidor com chaves gerenciadas pelo AWS KMS.   | Controle granular sobre chaves; auditoria; compliance.              | Controle de acesso; auditoria via CloudTrail; rotação automática de chaves.  | Custo adicional por operação; latência ligeiramente maior.             | S3, EBS, RDS, DynamoDB, SQS, SNS |
+| **DSSE-KMS**               | Criptografia dupla do lado do servidor com chaves AWS KMS.              | Compliance ultra-rigoroso; dupla proteção criptográfica.            | Duas camadas independentes de criptografia; máxima segurança.                | Maior custo; performance ligeiramente reduzida.                        | S3                               |
+| **SSE-C**                  | Criptografia do lado do servidor com chaves fornecidas pelo cliente.    | Controle total sobre as chaves de criptografia.                     | Cliente mantém controle total das chaves; sem dependência do KMS.            | Cliente responsável pelo gerenciamento de chaves; maior complexidade.  | S3                               |
+| **Client-Side Encryption** | Dados criptografados antes de enviar para a AWS.                        | Máximo controle e segurança; dados sensíveis extremamente críticos. | AWS nunca vê dados não criptografados; controle total do cliente.            | Maior complexidade de implementação; cliente gerencia todo o processo. | S3, DynamoDB (via SDK)           |
+
+### Criptografia de Dados em Trânsito (Data in Transit)
+
+| Tipo de Criptografia | Descrição                                                                       | Quando Usar                                                         | Vantagens                                                                      | Desvantagens                                                       | Serviços que Suportam            |
+| -------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------ | -------------------------------- |
+| **TLS/SSL**          | Protocolo de segurança para comunicação criptografada entre cliente e servidor. | Toda comunicação entre cliente e serviços AWS.                      | Padrão da indústria; amplamente suportado; performance otimizada.              | Configuração pode ser complexa em alguns cenários.                 | Todos os serviços AWS            |
+| **HTTPS**            | HTTP sobre TLS/SSL para comunicação web segura.                                 | APIs REST, sites, aplicações web.                                   | Fácil implementação; suporte nativo em browsers; SEO benefits.                 | Overhead mínimo de performance.                                    | CloudFront, ALB, API Gateway, S3 |
+| **SSL Termination**  | TLS terminado no load balancer, tráfego interno em texto claro.                 | Reduzir carga computacional nas instâncias EC2.                     | Melhor performance das instâncias; gerenciamento centralizado de certificados. | Tráfego interno não criptografado.                                 | ALB, NLB, CloudFront             |
+| **End-to-End TLS**   | Criptografia TLS mantida até o destino final.                                   | Compliance rigoroso; dados altamente sensíveis.                     | Máxima segurança; criptografia em todo o caminho.                              | Maior carga computacional; configuração mais complexa.             | ALB, NLB, EKS                    |
+| **SSL Pass-through** | Load balancer passa o tráfego TLS sem terminar a conexão.                       | Necessidade de TLS até o servidor final; certificados customizados. | Controle total sobre TLS no servidor; flexibilidade máxima.                    | Load balancer não pode inspecionar tráfego; menos funcionalidades. | NLB                              |
+
+### Criptografia Especializada
+
+| Tipo de Criptografia                | Descrição                                              | Quando Usar                                                    | Vantagens                                                             | Desvantagens                                      | Serviços que Suportam |
+| ----------------------------------- | ------------------------------------------------------ | -------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------- | --------------------- |
+| **Field-Level Encryption**          | Criptografia de campos específicos durante o trânsito. | Proteger dados sensíveis específicos (PII, números de cartão). | Proteção granular; dados sensíveis sempre criptografados.             | Configuração complexa; overhead de processamento. | CloudFront            |
+| **Envelope Encryption**             | Chave de dados criptografada por uma chave mestre.     | Grandes volumes de dados; performance otimizada.               | Eficiência para grandes datasets; chaves menores transitam pela rede. | Complexidade adicional de implementação.          | KMS, S3, EBS          |
+| **Hardware Security Modules (HSM)** | Criptografia baseada em hardware dedicado.             | Compliance FIPS 140-2 Level 3; chaves de alta criticidade.     | Máxima segurança; isolamento físico; certificações.                   | Alto custo; complexidade operacional.             | CloudHSM              |
+
+## Fórmulas de Cálculo WCU e RCU - DynamoDB
+
+## Write Capacity Units (WCU)
+
+| Operação                | Fórmula                                                | Descrição                                 | Exemplo                                                 |
+| ----------------------- | ------------------------------------------------------ | ----------------------------------------- | ------------------------------------------------------- |
+| **Standard Write**      | `WCU = CEIL(Item Size KB / 1) × Writes per Second`     | Cada WCU = 1 write de até 1KB por segundo | Item 1.5KB, 10 writes/s = CEIL(1.5/1) × 10 = 20 WCU     |
+| **Transactional Write** | `WCU = CEIL(Item Size KB / 1) × Writes per Second × 2` | Transações consomem 2x mais WCU           | Item 1.5KB, 10 writes/s = CEIL(1.5/1) × 10 × 2 = 40 WCU |
+
+## Read Capacity Units (RCU)
+
+| Operação                       | Fórmula                                               | Descrição                                                       | Exemplo                                            |
+| ------------------------------ | ----------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------- |
+| **Strongly Consistent Read**   | `RCU = CEIL(Item Size KB / 4) × Reads per Second`     | Cada RCU = 1 read fortemente consistente de até 4KB por segundo | Item 6KB, 10 reads/s = CEIL(6/4) × 10 = 20 RCU     |
+| **Eventually Consistent Read** | `RCU = CEIL(Item Size KB / 4) × Reads per Second ÷ 2` | Eventually consistent consome metade dos RCUs                   | Item 6KB, 10 reads/s = CEIL(6/4) × 10 ÷ 2 = 10 RCU |
+| **Transactional Read**         | `RCU = CEIL(Item Size KB / 4) × Reads per Second × 2` | Transações consomem 2x mais RCU                                 | Item 6KB, 10 reads/s = CEIL(6/4) × 10 × 2 = 40 RCU |
+
+## Query e Scan Operations
+
+| Operação               | Fórmula                                                         | Descrição                                              | Exemplo                                                              |
+| ---------------------- | --------------------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------------------------------- |
+| **Query (Strong)**     | `RCU = CEIL(Total Result Size KB / 4) × Queries per Second`     | RCU baseado no tamanho total dos resultados retornados | Query retorna 50KB, 5 queries/s = CEIL(50/4) × 5 = 65 RCU            |
+| **Query (Eventually)** | `RCU = CEIL(Total Result Size KB / 4) × Queries per Second ÷ 2` | Eventually consistent Query consome metade             | Query retorna 50KB, 5 queries/s = CEIL(50/4) × 5 ÷ 2 = 32.5 → 33 RCU |
+| **Scan**               | `RCU = CEIL(Scanned Data Size KB / 4) × Scans per Second ÷ 2`   | RCU baseado nos dados escaneados, não retornados       | Scan examina 100KB, 2 scans/s = CEIL(100/4) × 2 ÷ 2 = 25 RCU         |
+
+## Burst e On-Demand
+
+| Modo                 | Descrição                                 | Fórmula/Comportamento                        | Quando Usar                            |
+| -------------------- | ----------------------------------------- | -------------------------------------------- | -------------------------------------- |
+| **Provisioned Mode** | Capacidade fixa definida antecipadamente  | Usar fórmulas acima com capacidade definida  | Tráfego previsível; controle de custos |
+| **Burst Capacity**   | Capacidade extra temporária disponível    | Até 300 segundos de capacidade não utilizada | Picos ocasionais de tráfego            |
+| **On-Demand Mode**   | Pagamento por request sem provisionamento | `Custo = Requests × Preço por Request`       | Tráfego imprevisível; aplicações novas |
+| **Auto Scaling**     | Ajuste automático da capacidade           | Baseado em métricas de utilização (70-90%)   | Tráfego variável mas com padrões       |
+
+## Considerações Importantes
+
+| Aspecto                          | Detalhes                                    | Impacto no Cálculo                                     |
+| -------------------------------- | ------------------------------------------- | ------------------------------------------------------ |
+| **Tamanho Mínimo**               | Cada item consome no mínimo 1 WCU e 1 RCU   | Items menores que 1KB/4KB ainda consomem 1 WCU/RCU     |
+| **Arredondamento**               | Sempre arredondar para cima (CEIL)          | Item 0.1KB = 1 WCU, Item 4.1KB = 2 RCU                 |
+| **Hot Partitions**               | Distribuição desigual de acessos            | Pode causar throttling mesmo com capacidade suficiente |
+| **Global Secondary Index (GSI)** | Índices consomem capacidade separada        | WCU/RCU adicionais para cada GSI                       |
+| **Local Secondary Index (LSI)**  | Compartilha capacidade com tabela principal | Incluir no cálculo total da tabela                     |
