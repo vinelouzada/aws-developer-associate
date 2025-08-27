@@ -6,6 +6,11 @@
 - Usar imagens Docker personalizadas que já contenham todas as dependências necessárias pode acelerar significativamente o tempo de build, uma vez que reduz o tempo gasto no download de dependências durante cada operação de build.
 - O comando aws sts get-caller-identity exibe a identidade da chamada atual na AWS, útil para verificar a função IAM assumida, especialmente em scripts em EC2.
 
+## Palavras-Chave
+
+- **Rotação automatica de chaves:** AWS Secret Manager
+- **Reutilizar dependências de função Lambda:** Lambda Layers
+
 ## AWS Secrets Manager
 
 É útil para armazenar credenciais, chaves de API e tokens.
