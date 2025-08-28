@@ -374,6 +374,11 @@ Mapping
 Tem um pasta local que pode ser armazenada em cache dependencias...
 
 ## DynamoDB
+
+
+## API Gateway Stages + Lambda Alias
+<img width="1763" height="785" alt="image" src="https://github.com/user-attachments/assets/e11130c0-13e1-4548-9c56-077caa57d13a" />
+
 StreamSpecifications
 
 Para reforçar a consistencia no processo de atualização de valores nas tabelas, precisa utilizar **Gravação Condicionais**
