@@ -5,11 +5,21 @@
 - **Metodologia Canary** (ou implantação Canary) é uma estratégia de lançamento de software que reduz riscos ao implantar uma nova versão de forma gradual.
 - Usar imagens Docker personalizadas que já contenham todas as dependências necessárias pode acelerar significativamente o tempo de build, uma vez que reduz o tempo gasto no download de dependências durante cada operação de build.
 - O comando aws sts get-caller-identity exibe a identidade da chamada atual na AWS, útil para verificar a função IAM assumida, especialmente em scripts em EC2.
+- Arquivos descompactados não podem passar de 250MB
+- Depois que cria um fila default, nao tem como modificar, precisa criar outra FIFO
+- Indice Local do Dynamo so pode ser criado quando o tabela é criada
+- Em uma police da funcao precisa adicionar CloudWatchLogs para conseguir verificar os Logs
+- Os arquivos de configurações na pasta .ebeextensions do Elastic Beanstalk devem ser salvos com extensão .config
+- No CodeBuild só ações dentro do mesmo estágio podem ser paralelo
 
 ## Palavras-Chave
 
 - **Rotação automatica de chaves:** AWS Secret Manager
-- **Reutilizar dependências de função Lambda:** Lambda Layers
+- **Reutilizar dependências entre funções Lambdas:** Lambda Layers
+- **Testar igual em produção, mas localmente:** SAM
+- **Upload de arquivos a partir de 100MB S3:** Upload Multipart
+- **Identificar gargalos/latencia na app/infra:** AWS X-Ray
+- 
 
 ## AWS Secrets Manager
 
@@ -344,3 +354,29 @@ Amazon CloudFront é um serviço de rede de entrega de conteúdo (CDN) que forne
 | **Hot Partitions**               | Distribuição desigual de acessos            | Pode causar throttling mesmo com capacidade suficiente |
 | **Global Secondary Index (GSI)** | Índices consomem capacidade separada        | WCU/RCU adicionais para cada GSI                       |
 | **Local Secondary Index (LSI)**  | Compartilha capacidade com tabela principal | Incluir no cálculo total da tabela                     |
+
+## Lambda
+- Alias de Função Lambda
+
+Exemplo
+arn:aws:lambda:us-east-1:123456789012:function:minha-funcao:${stageVariables.ENV}
+
+
+## DynamoDB Streams
+É um recurso do Amazon DynamoDB que captura, de forma ordenada e quase em tempo real, as alterações (inserts, updates e deletes) feitas nas tabelas.
+Essas alterações são gravadas em um fluxo (stream) que pode ser consumido por outras aplicações, como funções AWS Lambda, Kinesis, ou mesmo outro DynamoDB.
+
+## AWS Elastic Beanstaliking
+
+Mapping
+
+## AWS Codebuild
+Tem um pasta local que pode ser armazenada em cache dependencias...
+
+## DynamoDB
+StreamSpecifications
+
+Para reforçar a consistencia no processo de atualização de valores nas tabelas, precisa utilizar **Gravação Condicionais**
+
+## S3 Events Notifications
+Permite que chamamos funcões Lambdas
