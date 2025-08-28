@@ -22,6 +22,8 @@
 - **SSE-S3:** A AWS gerencia tudo (simples).
 - **SSE-KMS:** A AWS gerencia, mas você controla e audita as chaves (equilíbrio ideal).
 - **SSE-C:** Você gerencia tudo (controle máximo, alta responsabilidade).
+- **Client-Side Encryption (CSE):** Sua aplicação criptografa os dados antes de enviá-los para a AWS (segurança máxima em trânsito).
+- **DSSE-KMS:** O S3 aplica duas camadas de criptografia usando o KMS (para alta conformidade).
 
 ## AWS Secrets Manager
 
