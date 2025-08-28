@@ -19,7 +19,9 @@
 - **Testar igual em produção, mas localmente:** SAM
 - **Upload de arquivos a partir de 100MB S3:** Upload Multipart
 - **Identificar gargalos/latencia na app/infra:** AWS X-Ray
-- 
+- **SSE-S3:** A AWS gerencia tudo (simples).
+- **SSE-KMS:** A AWS gerencia, mas você controla e audita as chaves (equilíbrio ideal).
+- **SSE-C:** Você gerencia tudo (controle máximo, alta responsabilidade).
 
 ## AWS Secrets Manager
 
