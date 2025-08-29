@@ -11,6 +11,7 @@
 - Em uma police da funcao precisa adicionar CloudWatchLogs para conseguir verificar os Logs
 - Os arquivos de configurações na pasta .ebeextensions do Elastic Beanstalk devem ser salvos com extensão .config
 - No CodeBuild só ações dentro do mesmo estágio podem ser paralelo
+- O **exponential backoff**: É uma técnica onde, a cada falha, o programa espera um tempo cada vez maior antes de tentar novamente.
 
 ## Palavras-Chave
 
@@ -388,3 +389,26 @@ Permite que chamamos funcões Lambdas
 
 ## API Gateway Stages + Lambda Alias
 <img width="1763" height="785" alt="image" src="https://github.com/user-attachments/assets/e11130c0-13e1-4548-9c56-077caa57d13a" />
+
+
+## Secretes Manager x Parameter Store
+| Característica | 🔑 AWS Secrets Manager | ⚙️ AWS Parameter Store |
+| :--- | :--- | :--- |
+| **Missão Principal** | Gerenciamento completo do ciclo de vida de segredos. | Armazenamento de configurações e segredos simples. |
+| **Palavra-Chave Mágica** | **Rotação Automática** (Automatic Rotation) | **Configuração** (Configuration), **Parâmetros** |
+| **Cenário Típico** | Credenciais de banco de dados (RDS), chaves de API que precisam ser trocadas periodicamente por política de segurança. | Strings de conexão, URLs de endpoints, senhas que são trocadas manualmente. |
+| **Custo** | **Pago** por segredo e por chamada de API. | **Gratuito** na camada padrão (Standard). A camada avançada (Advanced) é paga. |
+| **Integração** | Integração nativa com serviços como RDS, Redshift e DocumentDB para rotação. | Integração genérica via SDK/API. |
+| **"Quando escolher?"** | Quando a pergunta mencionar **rotação automática**, **auditoria** complexa ou gerenciamento de credenciais de BD da AWS. | Quando a pergunta mencionar armazenamento de **parâmetros de configuração**, **variáveis de ambiente** ou uma solução de baixo custo. |
+
+## DynamoDB LSI x GSI
+
+| Característica | 📍 LSI (Local Secondary Index) | 🌎 GSI (Global Secondary Index) |
+| :--- | :--- | :--- |
+| **Chaves** | **Usa a MESMA Partition Key** da tabela. | **Pode ter QUALQUER Partition Key** e Sort Key. |
+| **Criação** | **SOMENTE** no momento da criação da tabela. | A **QUALQUER** momento (tabela existente). |
+| **Capacidade (Throughput)** | **Compartilha** a capacidade de Leitura/Escrita com a tabela. | Possui capacidade de Leitura/Escrita **própria e independente**. |
+| **Consistência de Leitura** | Suporta leitura **Fortemente Consistente** (Strongly Consistent). | Suporta **APENAS** leitura **Eventualmente Consistente** (Eventually Consistent). |
+| **Flexibilidade** | Baixa. Permite reordenar itens dentro da mesma partição. | Alta. Permite recriar a tabela com novas chaves para buscas. |
+| **Limite por Partição** | Limite de **10 GB** de dados por valor de Partition Key. | **Sem limite** de tamanho por partição. |
+| **"Quando escolher?"** | Quando você precisa de uma visão ordenada diferente dos dados, mas **DENTRO da mesma partição**, e/ou precisa de leituras fortemente consistentes. | Quando você precisa fazer buscas em **toda a tabela** usando atributos que não são a chave primária. É o caso de uso mais comum para índices. |
