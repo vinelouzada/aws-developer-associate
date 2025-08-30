@@ -25,6 +25,11 @@
 - **SSE-C:** Você gerencia tudo (controle máximo, alta responsabilidade).
 - **Client-Side Encryption (CSE):** Sua aplicação criptografa os dados antes de enviá-los para a AWS (segurança máxima em trânsito).
 - **DSSE-KMS:** O S3 aplica duas camadas de criptografia usando o KMS (para alta conformidade).
+- **Lambda@Edge:** O objetivo principal é reduzir a latência. Devem ser criadas obrigatoriamente na região **us-east-1**, mas são replicadas e executadas globalmente.
+- **RDS Proxy:**  Reutiliza conexões para evitar esgotar os recursos do banco de dados.
+- **Fluxo do Cloud Formation:** iniciar (init) -> construir (build) -> testar (local start-api) -> empacotar (package) -> implantar (deploy
+- **Internet Gateway (IGW):** usado por sub-redes públicas. Permite tráfego de entrada e saída da internet
+- **NAT Gateway (NATGW):**  usado por sub-redes privadas. Permite tráfego somente de saída para a internet.
 
 ## AWS Secrets Manager
 
