@@ -30,6 +30,7 @@
 - **Fluxo do Cloud Formation:** iniciar (init) -> construir (build) -> testar (local start-api) -> empacotar (package) -> implantar (deploy
 - **Internet Gateway (IGW):** usado por sub-redes públicas. Permite tráfego de entrada e saída da internet
 - **NAT Gateway (NATGW):**  usado por sub-redes privadas. Permite tráfego somente de saída para a internet.
+- **Testar diferentes ambiente (test, prod, homo):** API Gateway Stages
 
 ## AWS Secrets Manager
 
