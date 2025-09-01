@@ -34,6 +34,9 @@
 - **Internet Gateway (IGW):** usado por sub-redes públicas. Permite tráfego de entrada e saída da internet
 - **NAT Gateway (NATGW):**  usado por sub-redes privadas. Permite tráfego somente de saída para a internet.
 - **Testar diferentes ambiente (test, prod, homo):** API Gateway Stages
+- **IAM Policy:** documento JSON. Define o que pode ser feito. A base de todas as permissões no IAM.
+- **IAM Role:** Quando uma entidade (serviço) assume uma role, ela obtém credenciais de segurança temporárias para realizar as ações permitidas por essa role. (EC2 acessar S3)
+- **Trusted Policy:** Define quem pode assumir uma IAM Role.
 
 ## AWS Secrets Manager
 
