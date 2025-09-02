@@ -15,6 +15,8 @@
 - O Amazon Macie é o serviço da AWS projetado especificamente para identificar e proteger dados confidenciais, como informações de identificação pessoal (PII) e dados financeiros, incluindo números de cartão de crédito
 - Um Endpoint VPC é como construir um túnel privado e direto do seu escritório (VPC) para o outro prédio (o serviço da AWS). O tráfego nunca vai para a internet pública.
 - **sam init --bootstrap** → inicializa projeto serverless + cria bucket S3 + configura ambiente AWS para deploy automático. (Sem a flag eu teria que ir no console criar o bucket)
+- Item do Dynamo: Max 400KB
+- Não permite acesso ao sistema operacional: AWS Fargate
 
 ## Palavras-Chave
 
