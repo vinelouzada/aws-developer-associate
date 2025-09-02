@@ -18,6 +18,7 @@
 - Item do Dynamo: Max 400KB
 - Não permite acesso ao sistema operacional: AWS Fargate
 - Eventos de ciclo de vida do EC2: notificações sobre mudanças de estado das instâncias (ex: started, stopped, terminated).
+- Lambda Destinations
 
 ## Palavras-Chave
 
