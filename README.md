@@ -17,6 +17,7 @@
 - **sam init --bootstrap** → inicializa projeto serverless + cria bucket S3 + configura ambiente AWS para deploy automático. (Sem a flag eu teria que ir no console criar o bucket)
 - Item do Dynamo: Max 400KB
 - Não permite acesso ao sistema operacional: AWS Fargate
+- Eventos de ciclo de vida do EC2: notificações sobre mudanças de estado das instâncias (ex: started, stopped, terminated).
 
 ## Palavras-Chave
 
