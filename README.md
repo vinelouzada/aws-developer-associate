@@ -42,6 +42,7 @@
 - **IAM Role:** Quando uma entidade (serviço) assume uma role, ela obtém credenciais de segurança temporárias para realizar as ações permitidas por essa role. (EC2 acessar S3)
 - **Trusted Policy:** Define quem pode assumir uma IAM Role.
 - **Sidecar** = contêiner auxiliar que roda junto com o contêiner principal para fornecer funcionalidades extras, observalidade e etc (sem alterar o app). Usualmente em microserviços
+- **Invalidar cache do CloudFront:** utilizar a API CreateInvalidation
 
 ## AWS Secrets Manager
 
