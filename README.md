@@ -19,6 +19,7 @@
 - Não permite acesso ao sistema operacional: AWS Fargate
 - Eventos de ciclo de vida do EC2: notificações sobre mudanças de estado das instâncias (ex: started, stopped, terminated).
 - Lambda Destinations
+- VPC Peering: usado para permitir a comunicação entre VPCs diferentes
 
 ## Palavras-Chave
 
